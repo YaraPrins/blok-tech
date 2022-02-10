@@ -1,0 +1,20 @@
+{
+  "name": "project-tech",
+  "version": "1.0.0",
+  "description": "this is a project for blok-tech",
+  "main": "helloworld.js",
+  "scripts": {
+    "test": "node helloworld.js"
+  },
+  "author": "Yara Prins",
+  "license": "MIT",
+  "dependencies": {
+    "camel-case": "^4.1.2",
+    "express": "^4.17.2",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+  
+}

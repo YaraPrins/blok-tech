@@ -2,9 +2,9 @@
   "name": "project-tech",
   "version": "1.0.0",
   "description": "this is a project for blok-tech",
-  "main": "helloworld.js",
+  "main": "server.js",
   "scripts": {
-    "test": "node helloworld.js"
+    "start": "nodemon server.js"
   },
   "author": "Yara Prins",
   "license": "MIT",
@@ -16,5 +16,4 @@
   "devDependencies": {
     "nodemon": "^2.0.15"
   }
-  
 }

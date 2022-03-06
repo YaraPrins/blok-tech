@@ -2,8 +2,29 @@ const express = require('express')
 const app = express()
 const port = 3000
 
+
+// ========================
+// ========================
+// STATIC FILES
+// ========================
 app.use(express.static('public'))
 
+
+// ========================
+// ========================
+// TEMPLATING ENGINE
+// ========================
+
+
+// const Handlebars = require("handlebars");
+// const template = Handlebars.compile("Name: {{name}}");
+// console.log(template({ name: "Yara" }));
+
+
+// ========================
+// ========================
+// ROUTES
+// ========================
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })

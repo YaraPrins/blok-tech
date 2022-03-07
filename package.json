@@ -11,7 +11,7 @@
   "dependencies": {
     "camel-case": "^4.1.2",
     "express": "^4.17.2",
-    "handlebars": "^4.7.7",
+    "express-handlebars": "^6.0.3",
     "lodash": "^4.17.21"
   },
   "devDependencies": {

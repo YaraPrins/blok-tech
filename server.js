@@ -1,25 +1,29 @@
 const express = require('express');
 const app = express();
-const port = 3000;
-
-
-// // ========================
-// // ========================
-// // STATIC FILES
-// // ========================
-app.use(express.static('public'));
+const port = 2000;
 
 
 // // ========================
 // // ========================
 // // TEMPLATING ENGINE
 // // ========================
-app.set('view engine', 'handlebars');
-app.set('views', './views');
+const {engine} = require('express-handlebars');
 
-const Handlebars = require('handlebars');
-const template = Handlebars.compile('Name: {{name}}');
-console.log(template({ name: 'Yara' }));
+app.set('view engine', 'hbs');
+
+app.engine('hbs', engine({
+    layoutsDir: `${__dirname}/views/layout`,
+    extname: 'hbs',
+    defaultLayout: 'home',
+    partialsDir: `${__dirname}/views/partials`
+}));
+
+app.use(express.static('public'));
+
+// app.set('views', path.join(__dirname, 'views'))
+// app.set('view engine', 'hbs');
+// hbs.registerPartials(__dirname + '/views/partials', function (err) {});
+// // app.engine('html', require('hbs').__express);
 
 
 // ========================
@@ -27,7 +31,7 @@ console.log(template({ name: 'Yara' }));
 // ROUTES
 // ========================
 app.get('/', (req, res) => {
-  res.render('home')
+  res.render('main')
 });
 
 app.get('/profile/:name', (req, res) => {
@@ -46,6 +50,10 @@ app.get('/:name/liked-songs', (req, res) => {
   res.send(`Hello ${req.params.name}, these are your liked songs!`)
 });
 
+// // ========================
+// // ========================
+// // STATIC FILES
+// // ========================
 
 
 // // ========================

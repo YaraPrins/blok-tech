@@ -44,7 +44,9 @@ Songs that they like will also be saved in a Liked Songs library on the app itse
 
 In the app, you can connect with your friends (whome also use the app), and you can get matched sooner with songs that your friends have also liked (as in, if one or more of your friends like a song, that song will appear quicker on your homescreen to match with, then songs based of the music library from for example Spotify, Apple Music or the In-App Music Library).
 
---------------------------------------------
+
+***
+
 
 ### Project Tech
 
@@ -58,4 +60,6 @@ For this class, we will be focussing on the _server-side_ part of Web Developmen
 
 In this class, we will be focussing on the _client-side_ part of Web Development, but specifically focused on ES6 JavaScript.
 
---------------------------------------------
+***
+
+

@@ -44,7 +44,29 @@ Songs that they like will also be saved in a Liked Songs library on the app itse
 
 In the app, you can connect with your friends (whome also use the app), and you can get matched sooner with songs that your friends have also liked (as in, if one or more of your friends like a song, that song will appear quicker on your homescreen to match with, then songs based of the music library from for example Spotify, Apple Music or the In-App Music Library).
 
+
 --------------------------------------------
+
+## Using my application
+
+To use my application, you first need a couple of things:
+
+- A code editor (VS Code, Atom, Brackets, etc)
+- Node
+- NPM
+
+### Installation
+
+1. First of all, you need to download my code by clicking on the code button (green), and choose to download the code as a ZIP file.
+2. Unzip the file and open it in your code editor
+3. Open the ternimal of that editor, and run the command `npm start` , this will run the server
+4. Open your web browser, and navigate to the localhost port that is given ( `localhost:3000` )
+5. Enjoy my application!
+
+
+--------------------------------------------
+
+## About the classes
 
 ### Project Tech
 
@@ -59,3 +81,5 @@ For this class, we will be focussing on the _server-side_ part of Web Developmen
 In this class, we will be focussing on the _client-side_ part of Web Development, but specifically focused on ES6 JavaScript.
 
 --------------------------------------------
+
+

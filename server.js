@@ -2,6 +2,10 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
 
+const dotenv = require('dotenv').config();
+
+
+
 
 // // ========================
 // // ========================
@@ -9,6 +13,15 @@ const port = process.env.PORT || 3000;
 // // ========================
 const {engine} = require('express-handlebars');
 
+
+/* BRONNEN
+  .handlebars extensie naar .hbs extensie
+    https://waelyasmina.medium.com/a-guide-into-using-handlebars-with-your-express-js-application-22b944443b65
+
+  express-handlebars tutorial die ik heb gevolgd om het te laten werken
+    https://youtu.be/HxJzZ7fmUDQ
+    (comment onder deze video)
+*/
 app.set('view engine', 'hbs');
 
 app.engine('hbs', engine({
@@ -18,7 +31,37 @@ app.engine('hbs', engine({
     partialsDir: `${__dirname}/views/partials`
 }));
 
+// // ========================
+// // ========================
+// // STATIC FILES
+// // ========================
+
 app.use(express.static('public'));
+
+
+// ========================
+// ========================
+// MIDDLEWARE
+// ========================
+
+const multer = require('multer');
+const upload = multer({dest: 'uploads/' });
+
+//bron: https://www.npmjs.com/package/body-parser
+
+const bodyParser = require('body-parser');
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
+
+app.use(function(req, res) {
+  res.setHeader('Content-Type', 'text/plain')
+  res.write('you posted:\n')
+  res.end(JSON.stringify(req.body, null, 2))
+})
 
 
 // ========================
@@ -45,10 +88,6 @@ app.get('/:name/liked-songs', (req, res) => {
   res.send(`Hello ${req.params.name}, these are your liked songs!`)
 });
 
-// // ========================
-// // ========================
-// // STATIC FILES
-// // ========================
 
 
 // // ========================

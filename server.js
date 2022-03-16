@@ -2,8 +2,34 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
 
+// // ========================
+// // ========================
+// // DATABASE
+// // ========================
+// bron: https://youtu.be/FNJkd2aDOy0 (uitleg Sonja over verbinding MongoDB)
 const dotenv = require('dotenv').config();
+const { MongoClient } = require('mongodb');
 
+let db = null;
+//function connectDB
+async function connectDB () {
+  // get URI from .env file
+  const uri = process.env.DB_URI;
+  //make connection to database
+  const options = { useUnifiedTopology: true };
+  const client = new MongoClient(uri, options);
+  await client.connect();
+  db = await client.db(process.env.DB_NAME);
+}
+connectDB()
+  .then(() => {
+    //if succesfull connection is made, show a message
+    console.log('We have a connection to MongoDB!');
+  })
+  .catch( error => {
+    //if connection is failed, show errors
+    console.log(error);
+  })
 
 
 

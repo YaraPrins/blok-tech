@@ -110,8 +110,8 @@ app.get('/login', (req, res) => {
   res.send('Please login to continue!')
 });
 
-app.get('/:name/liked-songs', (req, res) => {
-  res.send(`Hello ${req.params.name}, these are your liked songs!`)
+app.get('/liked-songs', (req, res) => {
+  res.render('liked')
 });
 
 

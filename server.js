@@ -10,6 +10,30 @@ const port = process.env.PORT || 3000;
 const dotenv = require('dotenv').config();
 const { MongoClient } = require('mongodb');
 
+
+
+// TESTER DATABASE
+
+//function connectDB Tester
+async function testConnectDB () {
+  // get URI from .env file
+  const uri = "mongodb+srv://tester:testing123@cluster0.cczua.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+  //make connection to database
+  const options = { useUnifiedTopology: true };
+  const client = new MongoClient(uri, options);
+  await client.connect();
+}
+testConnectDB()
+  .then(() => {
+    //if succesfull connection is made, show a message
+    console.log('TESTER --> We have a connection to MongoDB!');
+  })
+  .catch( error => {
+    //if connection is failed, show errors
+    console.log(error);
+  })
+
+// OWN DATABASE
 let db = null;
 //function connectDB
 async function connectDB () {
@@ -76,6 +100,8 @@ const upload = multer({dest: 'uploads/' });
 //bron: https://www.npmjs.com/package/body-parser
 
 const bodyParser = require('body-parser');
+const { template } = require('lodash');
+const { route } = require('express/lib/application');
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: false }))
@@ -95,23 +121,31 @@ app.use(bodyParser.json())
 // ROUTES
 // ========================
 app.get('/', (req, res) => {
-  res.render('main')
-});
-
-app.get('/profile/:name', (req, res) => {
-  res.send(`Hello ${req.params.name}`)
-});
-
-app.get('/about', (req, res) => {
-  res.send('This is an About page')
+  res.render('main', { title: 'Main', layout: 'zero-state'});
 });
 
 app.get('/login', (req, res) => {
-  res.send('Please login to continue!')
+  res.render('log-in', { title: 'Log In', layout: 'log-in'});
+});
+
+app.get('/signup', (req, res) => {
+  res.render('sign-up', { title: 'Sign Up', layout: 'log-in'});
 });
 
 app.get('/liked-songs', (req, res) => {
-  res.render('liked')
+  res.render('liked', { title: 'Liked Songs', layout: 'home'});
+});
+
+app.get('/settings', (req, res) => {
+  res.render('settings', { title: 'Settings', layout: 'home'});
+});
+
+app.get('/settings/edit-profile', (req, res) => {
+  res.render('edit-profile', { title: 'Edit Profile', layout: 'home'});
+});
+
+app.get('/settings/edit-profile/my-music-taste', (req, res) => {
+  res.render('music-taste', { title: 'Edit My Music Taste', layout: 'home'});
 });
 
 

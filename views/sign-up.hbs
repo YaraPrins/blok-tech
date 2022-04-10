@@ -13,21 +13,31 @@
     <h1>Register</h1>
     <form action="./signup" method="POST">
         <fieldset>
-            <label for="username">Username</label>
-            <input type="text" name="username" id="username" required>
+            <section>
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" required>
+            </section>
 
 
-            <label for="password">Password</label>
-            <input type="password"  name="password" id="password" required>
+            <section>
+                <label for="password">Password</label>
+                <input type="password"  name="password" id="password" required>
+            </section>
+            
+            <section>
+                <label for="passwordRepeat">Repeat Password</label>
+                <input type="password"  name="passwordRepeat" id="passwordRepeat" required>
+            </section>
 
-            <label for="passwordRepeat">Repeat Password</label>
-            <input type="password"  name="passwordRepeat" id="passwordRepeat" required>
+            <section>
+                <label for="email">Email</label>
+                <input type="email"  name="email" id="email" required>
+            </section>
         
-            <label for="email">Email</label>
-            <input type="email"  name="email" id="email" required>
         </fieldset>
 
+    </form>
+    
     <button type="submit">Sign Up</button>
     <p>Already got an account? <a href="./login">Log In</a></p>
-    </form>
 </section>

@@ -1,5 +1,7 @@
 # Welcome to my Blok-Tech Repository
 
+<img src="https://user-images.githubusercontent.com/27287809/162638935-1ce9cafb-3544-4d41-a136-86e3c6eee140.png" width="300" align="center">
+
 This repository is meant for a course (Blok Tech) of my study, Communication & Multimedia Design on the Hogeschool van Amsterdam. <br>
 In this repo I'll list and commit my projects and my classes, and will keep them up to date.
 

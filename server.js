@@ -1,16 +1,57 @@
 const express = require('express');
+const {engine} = require('express-handlebars');
+
+const dotenv = require('dotenv').config();
+const { MongoClient } = require('mongodb');
+
+//bron: https://www.npmjs.com/package/body-parser
+const bodyParser = require('body-parser');
+const { template } = require('lodash');
+const { route } = require('express/lib/application');
+
+const passport = require('passport');
+const strategy = require('passport-local').Strategy
+const session = require('express-session');
+const bcrypt = require('bcrypt');
+
+
 const app = express();
 const port = process.env.PORT || 3000;
+
+// // ========================
+// // ========================
+// // TEMPLATING ENGINE
+// // ========================
+
+/* BRONNEN
+  .handlebars extensie naar .hbs extensie
+    https://waelyasmina.medium.com/a-guide-into-using-handlebars-with-your-express-js-application-22b944443b65
+
+  express-handlebars tutorial die ik heb gevolgd om het te laten werken
+    https://youtu.be/HxJzZ7fmUDQ
+    (comment onder deze video)
+*/
+app.set('view engine', 'hbs');
+
+app.engine('hbs', engine({
+    layoutsDir: `${__dirname}/views/layout`,
+    extname: 'hbs',
+    defaultLayout: 'home',
+    partialsDir: `${__dirname}/views/partials`
+}));
+
+// // ========================
+// // ========================
+// // STATIC FILES
+// // ========================
+
+app.use(express.static('public'));
 
 // // ========================
 // // ========================
 // // DATABASE
 // // ========================
 // bron: https://youtu.be/FNJkd2aDOy0 (uitleg Sonja over verbinding MongoDB)
-const dotenv = require('dotenv').config();
-const { MongoClient } = require('mongodb');
-
-
 
 // TESTER DATABASE
 
@@ -49,6 +90,9 @@ connectDB()
   .then(() => {
     //if succesfull connection is made, show a message
     console.log('We have a connection to MongoDB!');
+
+    const users = db.collection('users');
+    app.locals.users = users;
   })
   .catch( error => {
     //if connection is failed, show errors
@@ -57,51 +101,11 @@ connectDB()
 
 
 
-// // ========================
-// // ========================
-// // TEMPLATING ENGINE
-// // ========================
-const {engine} = require('express-handlebars');
-
-
-/* BRONNEN
-  .handlebars extensie naar .hbs extensie
-    https://waelyasmina.medium.com/a-guide-into-using-handlebars-with-your-express-js-application-22b944443b65
-
-  express-handlebars tutorial die ik heb gevolgd om het te laten werken
-    https://youtu.be/HxJzZ7fmUDQ
-    (comment onder deze video)
-*/
-app.set('view engine', 'hbs');
-
-app.engine('hbs', engine({
-    layoutsDir: `${__dirname}/views/layout`,
-    extname: 'hbs',
-    defaultLayout: 'home',
-    partialsDir: `${__dirname}/views/partials`
-}));
-
-// // ========================
-// // ========================
-// // STATIC FILES
-// // ========================
-
-app.use(express.static('public'));
-
 
 // ========================
 // ========================
 // MIDDLEWARE
 // ========================
-
-const multer = require('multer');
-const upload = multer({dest: 'uploads/' });
-
-//bron: https://www.npmjs.com/package/body-parser
-
-const bodyParser = require('body-parser');
-const { template } = require('lodash');
-const { route } = require('express/lib/application');
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: false }))
@@ -109,11 +113,27 @@ app.use(bodyParser.urlencoded({extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
-// app.use(function(req, res) {
-//   res.setHeader('Content-Type', 'text/plain')
-//   res.write('you posted:\n')
-//   res.end(JSON.stringify(req.body, null, 2))
-// })
+// passport.use(new Strategy(
+//     (username, passpord, done) => {
+//       app.locals.users.findOne({ username }, (err, users) => {
+//         if (err) {
+//           return done(err);
+//         }
+
+//         if (!user) {
+//           return done(null, false);
+//         }
+
+//         if (user.password != password) {
+//           return done(null, false);
+//         }
+
+//         return done(null, user);
+//       })
+//     }
+
+// ))
+
 
 
 // ========================
@@ -121,19 +141,62 @@ app.use(bodyParser.json())
 // ROUTES
 // ========================
 app.get('/', (req, res) => {
-  res.render('main', { title: 'Main', layout: 'zero-state'});
+  res.render('zero-state', { title: 'Musicr | Music Matcher', layout: 'zero-state'});
 });
+
+app.get('/home', (req, res) => {
+  res.render('main', { title: 'Home', layout: 'home'});
+});
+
+/* ==================== LOG IN ===================== */
 
 app.get('/login', (req, res) => {
   res.render('log-in', { title: 'Log In', layout: 'log-in'});
 });
 
+app.post('/login', (req, res) => {
+  // try {
+  //   res.redirect('/welcome')
+  // } catch {
+  //   res.redirect('/login')
+  // }
+  // res.render('main', { title: 'Log In', layout: 'home'});
+});
+
+/* ==================== SIGN UP ==================== */
+
 app.get('/signup', (req, res) => {
   res.render('sign-up', { title: 'Sign Up', layout: 'log-in'});
 });
 
-app.get('/liked-songs', (req, res) => {
-  res.render('liked', { title: 'Liked Songs', layout: 'home'});
+app.post('/signup', async (req, res) => {
+    try {
+      let addUser = {
+          name: req.body.username,
+          password: req.body.password,
+          email: req.body.email
+        }
+      await db.collection('users').insertOne(addUser)
+      res.redirect('/login')
+    } catch {
+      res.redirect('/signup')
+    }
+  res.render('sign-up', { title: 'Sign Up', layout: 'log-in'});
+});
+
+
+/* ============== OTHER ROUTES ================== */
+
+app.get('/getting-started', (req, res) => {
+  res.render('gettings-started', { title: 'Welcome, let\'s get started!', layout: 'home'});
+});
+
+app.get('/matcher', (req, res) => {
+  res.render('matcher', { title: 'Song Matcher', layout: 'matcher'});
+});
+
+app.get('/saved', (req, res) => {
+  res.render('saved', { title: 'Saved Songs', layout: 'home'});
 });
 
 app.get('/settings', (req, res) => {

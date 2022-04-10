@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'Poppins';
+    src: url(https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,400;0,700;0,900;1,100;1,400;1,700;1,900&display=swap);
+}
+
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
@@ -5,94 +10,194 @@
 }
 
 body {
-    color: rgba(0, 6, 94, 0.658);
+    background-color: #000;
+    color: #fff;
 }
 
 h1, h2, h3, p, li, a {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Poppins', Arial, Helvetica, sans-serif;
 }
 
-header div:nth-of-type(2), 
-header div:nth-of-type(2) nav ul {
+/* 
+   ==================================================
+   ==================================================
+   =====               ZERO STATE               =====
+   ==================================================
+   ==================================================
+*/
+
+body.zero-state {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
 }
 
-header div:nth-of-type(2) {
-    margin: 0.5rem;
-    justify-content: space-between;
+img.logo-zeroState {
+    max-width: 20rem;
 }
 
-header div:nth-of-type(2) img {
-    max-width: 4rem;
+button.startButton {
+    position: absolute;
+    bottom: 12rem;
+    font-family: 'Poppins', Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    padding: 0.5rem 3rem;
+    background-color: #FFF194;
+    border: none;
+
 }
 
-header div:nth-of-type(2) nav {
-    position: fixed;
+button.startButton a {
+    font-size: 1rem;
+    color: #000;
+    text-decoration: none;
+}
+
+/* 
+   ==================================================
+   ==================================================
+   =====                 LOG IN                 =====
+   ==================================================
+   ==================================================
+*/
+
+section.login,
+section.signup {
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+section.login form,
+section.signup form {
+    position: relative;
+}
+
+section.login form h1,
+section.signup form h1 {
+    font-family: 'Poppins', Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    margin-bottom: 1rem;
+}
+
+section.login form fieldset,
+section.signup form fieldset {
+    border: none;
+}
+
+section.login form fieldset section,
+section.signup form fieldset section {
+    margin: 0.5rem 0;
+    display: flex;
+    flex-direction: column;
+}
+
+section.login form fieldset label,
+section.signup form fieldset label {
+    font-family: 'Poppins', Arial, Helvetica, sans-serif;
+    margin: 0.5rem 0;
+}
+
+section.login form fieldset input,
+section.signup  form fieldset input {
+    width: 20rem;
+    height: 2.5rem;
+}
+
+section.login form p:first-of-type a,
+section.signup form p:first-of-type a {
+    color: #fff;
+    position: absolute;
+    right: 0;
+}
+
+section.login button[type="submit"],
+section.signup button[type="submit"] {
+    font-family: 'Poppins', Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    position: absolute;
+    bottom: 12rem;
+    padding: 0.5rem 3rem;
+    background-color: #FFF194;
+    border: none;
+}
+
+section.login > p,
+section.signup > p {
+    position: absolute;
+    bottom: 10rem;
+    color: #fff;
+}
+
+section.login > p a,
+section.signup > p a {
+    color: #fff;
+}
+
+
+
+
+/* 
+   ==================================================
+   ==================================================
+   =====                  HOME                  =====
+   ==================================================
+   ==================================================
+*/
+
+div.banner {
+    width: 100%;
+    height: 3rem;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div.banner img {
+    max-width: 7rem;
+}
+
+div.background-wave {
+    width: 100%;
+    position: absolute;
     top: 0;
     right: 0;
-    width: 60%;
-    height: 100vh;
-    background-color: rgb(94, 0, 51);
-    transform: translateX(100%);
-    transition: transform 200ms ease;
+    z-index: -1;
 }
-
-header div:nth-of-type(2) nav.menuOpen {
-    transform: translateX(0);
-}
-
-header div:nth-of-type(2) nav ul {
-    flex-direction: column;
-    align-items: flex-end;
-    height: 95%;
-    padding: 6rem 2rem 0;
-}
-
-header div:nth-of-type(2) nav li {
-    list-style: none;
-    font-size: 1.4rem;
-    color: #fff;
-    margin: 0.7rem 0;
-}
-
-header div:nth-of-type(2) nav li:last-child {
-    margin-top: auto;
-}
-
-header div.menuToggle {
+div.background-wave-zero {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
-    z-index: 100;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
 }
 
-header div.menuToggle div {
-    width: 1.5rem;
-    height: 0.3rem;
-    border-radius: 20px;
-    background-color: #000;
-    z-index: 100;
-    display: block;
-    margin: 0.15rem 0;
-    padding: 0;
-    transition: all 200ms ease;
+div.background-wave svg.wave-3 {
+    width: 100%;
 }
 
-header div.menuToggleCross div:nth-of-type(1), 
-header div.menuToggleCross div:nth-of-type(3) {
-    width: 2rem;
-    transform-origin: center;
+header {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+header div nav ul {
+    width: 100%;
+    height: 4rem;
     background-color: #fff;
+    color: #000;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
 }
 
-header div.menuToggleCross div:nth-of-type(1) {
-    transform: translateY(7px) rotate(45deg);
-}
-
-header div.menuToggleCross div:nth-of-type(2) {
-    width: 0;
-}
-
-header div.menuToggleCross div:nth-of-type(3) {
-    transform: translateY(-7px) rotate(-45deg);
+header div nav ul li a {
+    color: #000;
 }

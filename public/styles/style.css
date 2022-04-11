@@ -103,7 +103,7 @@ section.signup form fieldset label {
 }
 
 section.login form fieldset input,
-section.signup  form fieldset input {
+section.signup form fieldset input {
     width: 20rem;
     height: 2.5rem;
 }
@@ -115,27 +115,29 @@ section.signup form p:first-of-type a {
     right: 0;
 }
 
-section.login button[type="submit"],
-section.signup button[type="submit"] {
+section.login form p:nth-of-type(2),
+section.signup form p:nth-of-type(2) {
+    position: absolute;
+    bottom: -11rem;
+    left: 35%;
+    color: #fff;
+}
+
+section.login form p:nth-of-type(2) a,
+section.signup form p:nth-of-type(2) a {
+    color: #fff;
+}
+
+section.login form button[type="submit"],
+section.signup form button[type="submit"] {
     font-family: 'Poppins', Arial, Helvetica, sans-serif;
     font-size: 1rem;
     position: absolute;
-    bottom: 12rem;
+    bottom: -9rem;
+    left: 25%;
     padding: 0.5rem 3rem;
     background-color: #FFF194;
     border: none;
-}
-
-section.login > p,
-section.signup > p {
-    position: absolute;
-    bottom: 10rem;
-    color: #fff;
-}
-
-section.login > p a,
-section.signup > p a {
-    color: #fff;
 }
 
 

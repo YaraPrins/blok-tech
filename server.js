@@ -55,24 +55,6 @@ app.use(express.static('public'));
 
 // TESTER DATABASE
 
-//function connectDB Tester
-async function testConnectDB () {
-  // get URI from .env file
-  const uri = "mongodb+srv://tester:testing123@cluster0.cczua.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
-  //make connection to database
-  const options = { useUnifiedTopology: true };
-  const client = new MongoClient(uri, options);
-  await client.connect();
-}
-testConnectDB()
-  .then(() => {
-    //if succesfull connection is made, show a message
-    console.log('TESTER --> We have a connection to MongoDB!');
-  })
-  .catch( error => {
-    //if connection is failed, show errors
-    console.log(error);
-  })
 
 // OWN DATABASE
 let db = null;
@@ -100,6 +82,24 @@ connectDB()
   })
 
 
+//function connectDB Tester
+async function testConnectDB () {
+  // get URI from .env file
+  const uri = "mongodb+srv://tester:testing123@cluster0.cczua.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+  //make connection to database
+  const options = { useUnifiedTopology: true };
+  const client = new MongoClient(uri, options);
+  await client.connect();
+}
+testConnectDB()
+  .then(() => {
+    //if succesfull connection is made, show a message
+    console.log('TESTER --> We have a connection to MongoDB!');
+  })
+  .catch( error => {
+    //if connection is failed, show errors
+    console.log(error);
+  })
 
 
 // ========================
@@ -177,11 +177,10 @@ app.post('/signup', async (req, res) => {
           email: req.body.email
         }
       await db.collection('users').insertOne(addUser)
-      res.redirect('/login')
     } catch {
       res.redirect('/signup')
     }
-  res.render('sign-up', { title: 'Sign Up', layout: 'log-in'});
+  res.render('log-in', { title: 'Sign Up', layout: 'log-in'});
 });
 
 
